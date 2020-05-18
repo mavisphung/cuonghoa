@@ -1,0 +1,8 @@
+name: CommandCuongHoa
+main: me.mavis.main.Main
+version: 1.0
+author: Mavis
+commands:
+  cuonghoa:
+    description: Enchant sharpness with luck
+    usage: /cuonghoa
