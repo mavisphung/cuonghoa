@@ -6,3 +6,6 @@ commands:
   cuonghoa:
     description: Enchant sharpness with luck
     usage: /cuonghoa
+  shop:
+    description: Open shop
+    usage: /shop

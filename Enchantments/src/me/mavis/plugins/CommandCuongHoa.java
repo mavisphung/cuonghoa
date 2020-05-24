@@ -63,50 +63,6 @@ public class CommandCuongHoa implements CommandExecutor {
 					Map<Enchantment, Integer> enchantsList = mitem.getEnchants();
 					Enchantment enchant = Enchantment.getByKey(NamespacedKey.minecraft(args[0].toLowerCase()));
 					player.sendMessage(enchant.getName());
-//					if (!isExistedEnchantment(enchantsList, enchant)) {
-//						mitem.addEnchant(Enchantment.getByKey(NamespacedKey.minecraft(args[0].toLowerCase())), 1, true);
-//						pitem.setItemMeta(mitem);
-//						player.getInventory().setItemInMainHand(pitem);
-//						player.sendMessage(ChatColor.AQUA + "Enchant thành công");
-//					}
-//					else {
-//						if (isMoreTenLevels(enchantsList)) {
-//							Random random = new Random();
-//							int luck = random.nextInt(100);
-//							try {
-//								if (enchant != null) {
-//									Integer currentLevel = mitem.getEnchantLevel(enchant);
-//									if (luck <= 20) {
-//										if (currentLevel == 1) {
-//											mitem.removeEnchant(enchant);
-//										}
-//										else {
-//											mitem.addEnchant(enchant, currentLevel - 1, true);
-//										}
-//										pitem.setItemMeta(mitem);
-//										player.getInventory().setItemInMainHand(pitem);
-//										player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.DARK_RED + "Cường hóa thất bại !");
-//									}
-//									else {
-//				//						enchantsList.put(Enchantment.DAMAGE_ALL, currentLevel + 1);
-//										mitem.addEnchant(enchant, currentLevel + 1, true);
-//										pitem.setItemMeta(mitem);
-//										player.getInventory().setItemInMainHand(pitem);
-//										player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.AQUA + "Cường hóa thành công !");
-//									}
-//								}
-//								else {
-//									player.sendMessage(ChatColor.RED + "Justmine: " +ChatColor.DARK_RED + "Enchantment này bị lỗi");
-//								}
-//								
-//							} catch (Exception e) {
-//								e.printStackTrace();
-//							}
-//						}
-//						else {
-//							player.sendMessage(ChatColor.RED + "Justmine: " +ChatColor.DARK_RED + "Có dòng enchant quá lvl 10!");
-//						}
-//					}
 					if (!enchantsList.containsKey(enchant)) {
 						mitem.addEnchant(Enchantment.getByKey(NamespacedKey.minecraft(args[0].toLowerCase())), 1, true);
 //						mitem.addEnchant(enchant, 1, true);
@@ -119,76 +75,88 @@ public class CommandCuongHoa implements CommandExecutor {
 						if (enchant != null) {
 							Random random = new Random();
 							int luck = random.nextInt(100);
-							Integer currentLevel = mitem.getEnchantLevel(enchant);
-							if (currentLevel <= 3) {
-								if (luck <= 20) {
-									if (currentLevel == 1) {
-										mitem.removeEnchant(enchant);
+							Integer currentLevel = mitem.getEnchantLevel(enchant);							
+							switch (currentLevel) {
+								case 1:
+								case 2:
+								case 3:
+									if (luck <= 20) {
+										if (currentLevel == 1) {
+											mitem.removeEnchant(enchant);
+										}
+										else {
+											mitem.addEnchant(enchant, currentLevel - 1, true);
+										}
+										pitem.setItemMeta(mitem);
+										player.getInventory().setItemInMainHand(pitem);
+										player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.DARK_RED + "Cường hóa thất bại !");
 									}
 									else {
-										mitem.addEnchant(enchant, currentLevel - 1, true);
+				//						enchantsList.put(Enchantment.DAMAGE_ALL, currentLevel + 1);
+										mitem.addEnchant(enchant, currentLevel + 1, true);
+										pitem.setItemMeta(mitem);
+										player.getInventory().setItemInMainHand(pitem);
+										player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.AQUA + "Cường hóa thành công !");
 									}
-									pitem.setItemMeta(mitem);
-									player.getInventory().setItemInMainHand(pitem);
-									player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.DARK_RED + "Cường hóa thất bại !");
-								}
-								else {
-			//						enchantsList.put(Enchantment.DAMAGE_ALL, currentLevel + 1);
-									mitem.addEnchant(enchant, currentLevel + 1, true);
-									pitem.setItemMeta(mitem);
-									player.getInventory().setItemInMainHand(pitem);
-									player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.AQUA + "Cường hóa thành công !");
-								}
-							}
-							else if (currentLevel > 3 && currentLevel <= 5) {
-								luck = random.nextInt(100);
-								if (luck <= 40) {
-									mitem.addEnchant(enchant, currentLevel - 1, true);
-									pitem.setItemMeta(mitem);
-									player.getInventory().setItemInMainHand(pitem);
-									player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.DARK_RED + "Cường hóa thất bại !");
-								}
-								else {
-									mitem.addEnchant(enchant, currentLevel + 1, true);
-									pitem.setItemMeta(mitem);
-									player.getInventory().setItemInMainHand(pitem);
-									player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.AQUA + "Cường hóa thành công !");
-								}
-							} else if (currentLevel > 5 && currentLevel <= 8) {
-								luck = random.nextInt(100);
-								if (luck <= 60) {
-									mitem.addEnchant(enchant, currentLevel - 1, true);
-									pitem.setItemMeta(mitem);
-									player.getInventory().setItemInMainHand(pitem);
-									player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.DARK_RED + "Cường hóa thất bại !");
-								}
-								else {
-									mitem.addEnchant(enchant, currentLevel + 1, true);
-									pitem.setItemMeta(mitem);
-									player.getInventory().setItemInMainHand(pitem);
-									player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.AQUA + "Cường hóa thành công !");
-								}
-							} else if (currentLevel > 8 && currentLevel <= 10) {
-								luck = random.nextInt(100);
-								if (luck <= 80) {
-									mitem.addEnchant(enchant, currentLevel - 2, true);
-									pitem.setItemMeta(mitem);
-									player.getInventory().setItemInMainHand(pitem);
-									player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.DARK_RED + "Cường hóa thất bại !");
-								}
-								else {
-									mitem.addEnchant(enchant, currentLevel + 1, true);
-									pitem.setItemMeta(mitem);
-									player.getInventory().setItemInMainHand(pitem);
-									player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.AQUA + "Cường hóa thành công !");
-								}
+									break;
+								case 4:
+								case 5:
+									luck = random.nextInt(100);
+									if (luck <= 40) {
+										mitem.addEnchant(enchant, currentLevel - 1, true);
+										pitem.setItemMeta(mitem);
+										player.getInventory().setItemInMainHand(pitem);
+										player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.DARK_RED + "Cường hóa thất bại !");
+									}
+									else {
+										mitem.addEnchant(enchant, currentLevel + 1, true);
+										pitem.setItemMeta(mitem);
+										player.getInventory().setItemInMainHand(pitem);
+										player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.AQUA + "Cường hóa thành công !");
+									}
+									break;
+								case 6:
+								case 7:
+								case 8:
+									luck = random.nextInt(100);
+									if (luck <= 60) {
+										mitem.addEnchant(enchant, currentLevel - 1, true);
+										pitem.setItemMeta(mitem);
+										player.getInventory().setItemInMainHand(pitem);
+										player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.DARK_RED + "Cường hóa thất bại !");
+									}
+									else {
+										mitem.addEnchant(enchant, currentLevel + 1, true);
+										pitem.setItemMeta(mitem);
+										player.getInventory().setItemInMainHand(pitem);
+										player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.AQUA + "Cường hóa thành công !");
+									}
+									break;
+								case 9:
+								case 10:
+									luck = random.nextInt(100);
+									if (luck <= 80) {
+										mitem.addEnchant(enchant, currentLevel - 2, true);
+										pitem.setItemMeta(mitem);
+										player.getInventory().setItemInMainHand(pitem);
+										player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.DARK_RED + "Cường hóa thất bại !");
+									}
+									else {
+										mitem.addEnchant(enchant, currentLevel + 1, true);
+										pitem.setItemMeta(mitem);
+										player.getInventory().setItemInMainHand(pitem);
+										player.sendMessage(ChatColor.RED + "Justmine: " + ChatColor.AQUA + "Cường hóa thành công !");
+									}
+									break;
+								default:
+									player.sendMessage("Lvl cao nhất là 10");
+									break;
 							}
 						}
-						else {
-							player.sendMessage(ChatColor.RED + "Justmine: " +ChatColor.DARK_RED + "Enchantment này bị lỗi");
-						}
+//						else {
+//							player.sendMessage(ChatColor.RED + "Justmine: " +ChatColor.DARK_RED + "Enchantment này bị lỗi");
+//						}
 					}
-					
 				}
 			}
 		}
